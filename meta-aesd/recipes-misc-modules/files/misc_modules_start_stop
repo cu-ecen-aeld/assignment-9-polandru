@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ "$1" == "start" ]
+then
+    module_load faulty.ko
+fi
+
+if [ "$1" == "stop" ]
+then 
+    module_unload faulty.ko
+fi
