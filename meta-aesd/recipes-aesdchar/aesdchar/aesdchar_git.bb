@@ -12,12 +12,12 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 
-SRC_URI = "git://git@github.com/cu-ecen-aeld/assignment-7-polandru.git;protocol=ssh;branch=main"
+SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-polandru.git;protocol=ssh;branch=master"
 
 inherit module
-FILES:${PN} += "${sysconfdir}/init.d/misc_modules_start_stop"
-FILES:${PN} += "${bindir}/module_load"
-FILES:${PN} += "${bindir}/module_unload"
+FILES:${PN} += "${sysconfdir}/init.d/aesdchar_start_stop"
+FILES:${PN} += "${bindir}/aesdchar_load"
+FILES:${PN} += "${bindir}/aesdchar_unload"
 
 	 
 	       
@@ -26,16 +26,16 @@ FILES:${PN} += "${bindir}/module_unload"
 
 # Modify these as desired
 PV = "1.0+git${SRCPV}"
-SRCREV = "3a9e1b41cc75c658412e7ab7d19a02c4b365c133"
+SRCREV = "1934eff09c9ec6741d5573883cb88b230d690a11"
 
-S = "${WORKDIR}/git"
+S = "${WORKDIR}/git/aesd-char-driver/"
 
 
 
 
 inherit update-rc.d
 INITSCRIPT_PACKAGES = "${PN}"
-INITSCRIPT_NAME:${PN} ="misc_modules_start_stop"
+INITSCRIPT_NAME:${PN} ="aesdchar_start_stop"
 
 INHIBIT_PACKAGE_STRIP="1"
 
@@ -47,15 +47,14 @@ EXTRA_OEMAKE += "KERNELDIR=${STAGING_KERNEL_DIR}"
 
 do_install () { 
         install -d ${D}/lib/modules/${KERNEL_VERSION}/extra
-	   install -m 0755 ${S}/misc-modules/faulty.ko ${D}/lib/modules/${KERNEL_VERSION}/extra
-	   install -m 0755 ${S}/misc-modules/hello.ko ${D}/lib/modules/${KERNEL_VERSION}/extra
-       
+	   install -m 0755 ${S}/aesdchar.ko ${D}/lib/modules/${KERNEL_VERSION}/extra
+
 	   install -d ${D}${bindir}
-	   install -m 0755 ${S}/misc-modules/module_load ${D}${bindir}
-	   install -m 0755 ${S}/misc-modules/module_unload ${D}${bindir}
+	   install -m 0755 ${S}/aesdchar_load ${D}${bindir}
+	   install -m 0755 ${S}/aesdchar_unload ${D}${bindir}
 
 	   install -d ${D}${sysconfdir}/init.d
-	   install -m 0755 ${S}/misc-modules/misc_modules_start_stop ${D}${sysconfdir}/init.d
+	   install -m 0755 ${S}/aesdchar_start_stop ${D}${sysconfdir}/init.d
 
 
 }
