@@ -26,7 +26,7 @@ FILES:${PN} += "${bindir}/aesdchar_unload"
 
 # Modify these as desired
 PV = "1.0+git${SRCPV}"
-SRCREV = "1934eff09c9ec6741d5573883cb88b230d690a11	"
+SRCREV = "b8d7ea9a1d395c7c723265936c99c69e298268d4"
 
 S = "${WORKDIR}/git/aesd-char-driver/"
 
